@@ -16,11 +16,16 @@ Open a terminal window and make sure the current directory matches the root dire
 
 ### 1. Did you use an LLM (e.g., ChatGPT) to assist you with the completion of this project?
 
-[Type your answer here]
+Yes, we used ChatGPT. 
 
 ### If yes, was it helpful or not? Provide a brief description of whether it was helpful or not. Also, provide a percentage of how much it helped you in each of the four main tasks (i.e., loading from a file, solving Sudoku, configuring the testing, configuring the GitHub Actions workflow).
 
-[Type your answer here]
+ChatGPT was mainly helpful in learning the basics of Rust and seeing how much overlap there was between Rust and other languages we were more familiar with, such as C++. 
+Breakdown of usage: 
+Loading from a file: 30%
+Solving sudoku: 5%
+Configuring testing: 
+Configuring GitHub Actions workflow: 
 
 ### If no, did you search the Internet for solutions? If so, provide the website(s) where you copied a considerable amount of code. For example, the website that you copied the core Sudoku solver.
 

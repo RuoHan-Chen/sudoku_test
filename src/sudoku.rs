@@ -9,12 +9,22 @@ impl Puzzle {
     const NUMROWS: usize = 9; 
     const SUBGRID_SIZE: usize = 3; 
 
+    /**
+     * Constructor for a Puzzle object, which contains two constants and an array of values
+     * 
+     */
     pub fn new() -> Self {
         Self {
             vals: [[0; Self::NUMROWS]; Self::NUMROWS],
         }
     }
 
+    /**
+     * Loads in a sudoku puzzle from a given file path
+     * 
+     * @param  path An absolute or relative path to the file containing the sudoku puzzle
+     * @return      Success status of the function (whether the method ran successfully)
+     */
     pub fn load_from_file(&mut self, path: &String) -> io::Result<()> {
         let f = File::open(path)?;
         let mut reader = BufReader::new(f);
@@ -35,6 +45,14 @@ impl Puzzle {
         Ok(())
     }
 
+    /**
+     * Check whether a given value can be placed at a given position in the board
+     * 
+     * @param  row      Row index of the position where the value will be placed
+     * @param  col      Column index of the positoin where the value will be placed
+     * @param  test_val Value to be tested
+     * @return          Whether test_val can be placed at the given position  
+     */
     fn check_valid(&self, row: usize, col: usize, test_val: u32) -> bool {
         // check rows and cols
         for i in 0..Self::NUMROWS {
@@ -58,10 +76,22 @@ impl Puzzle {
         return true; 
     }
 
+    /**
+     * Solves the currently loaded sudoku board
+     * 
+     * @return Whether the sudoku board can be solved 
+     */
     pub fn solve(&mut self) -> bool {
         return self.solve_index(0, 0); 
     }
 
+    /**
+     * Solves the currently loaded sudoku board starting from the given position
+     * 
+     * @param  row Row index of the current position on the board  
+     * @param  col Column index of the current position on the board
+     * @return     Whether the board can be solved starting from the given position
+     */
     fn solve_index(&mut self, row: usize, col: usize) -> bool {
         if row == Self::NUMROWS {
             return true; 
@@ -92,6 +122,13 @@ impl Puzzle {
         return solved; 
     }
 
+    /**
+     * Returns a formatted string of a 3-value subset within the board
+     * 
+     * @param  row       Row index for the 3-value subset
+     * @param  col_start Column index of the first value in the subset
+     * @return           3 values at given row starting at col_start, separated by spaces
+     */
     fn print_subrow(&self, row: usize, col_start: usize) -> String {
         let first_val: String = self.vals[row][col_start].to_string(); 
         let second_val: String = self.vals[row][col_start+1].to_string(); 
@@ -100,6 +137,12 @@ impl Puzzle {
         return subrow_formatted; 
     }
 
+    /**
+     * Returns a formatted string of a row on the board 
+     * 
+     * @param  row Row of the puzzle to be converted to a string
+     * @return     Row of the puzzle, demarcated with | to indicate subgrids 
+     */
     fn print_row(&self, row: usize) -> String {
         let first_subsec: String = self.print_subrow(row, 0); 
         let second_subsec: String = self.print_subrow(row, 3); 
@@ -108,6 +151,9 @@ impl Puzzle {
         return row_formatted; 
     }
 
+    /**
+     * Prints the entire board 
+     */
     pub fn print(&self) {
         println!("+-------+-------+-------+"); 
         for i in 0..3 {
