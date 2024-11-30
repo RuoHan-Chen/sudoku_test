@@ -2,15 +2,15 @@
 
 ## Name(s)
 
-[Type the names of team members here]
+Yifei Fang, Ruohan Chen, Jason Lee
 
 ## Instructions on how to install compiler/interpreter
 
-[Type the installation instructions here]
+Visit https://www.rust-lang.org/learn/get-started, download the correct installer for your system, and follow the instructions on the program. 
 
 ## Instructions on how to run (and test) program
 
-[Type the instructions to run the program here]
+Open a terminal window and make sure the current directory matches the root directory of this project. Run "cargo build" to build the program, then "cargo run" and "cargo test" to run and test the program, respectively. 
 
 ## Questions
 
