@@ -92,10 +92,36 @@ impl Puzzle {
         return solved; 
     }
 
+    fn print_subrow(&self, row: usize, col_start: usize) -> String {
+        let first_val: String = self.vals[row][col_start].to_string(); 
+        let second_val: String = self.vals[row][col_start+1].to_string(); 
+        let third_val: String = self.vals[row][col_start+2].to_string(); 
+        let subrow_formatted: String = format!("{} {} {}", first_val, second_val, third_val); 
+        return subrow_formatted; 
+    }
+
+    fn print_row(&self, row: usize) -> String {
+        let first_subsec: String = self.print_subrow(row, 0); 
+        let second_subsec: String = self.print_subrow(row, 3); 
+        let third_subsec: String = self.print_subrow(row, 6); 
+        let row_formatted = format!("| {} | {} | {} |", first_subsec, second_subsec, third_subsec);
+        return row_formatted; 
+    }
+
     pub fn print(&self) {
-        for row in &self.vals {
-            println!("{:?}", row);
+        println!("+-------+-------+-------+"); 
+        for i in 0..3 {
+            println!("{}", self.print_row(i));
         }
+        println!("+-------+-------+-------+"); 
+        for i in 3..6 {
+            println!("{}", self.print_row(i));
+        }
+        println!("+-------+-------+-------+"); 
+        for i in 6..Self::NUMROWS {
+            println!("{}", self.print_row(i));
+        }
+        println!("+-------+-------+-------+"); 
     }
 
 }
