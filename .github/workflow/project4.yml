@@ -11,22 +11,17 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      # Step 1: Clone repository
       - name: Clone repository
         uses: actions/checkout@v3
 
-      # Step 2: Set up Rust toolchain
       - name: Set up Rust
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           override: true
 
-      # Step 3: Build Rust project
       - name: Build Rust project
         run: cargo build --verbose
 
-      # Step 4: Run specific test cases
-      - name: Run specific test file
-        run: cargo test --test sudoku-test --verbose
-        
+      - name: Run unit tests
+        run: cargo test --verbose

@@ -169,7 +169,6 @@ impl Puzzle {
         }
         println!("+-------+-------+-------+"); 
     }
-    
 /**
  * Checks if two puzzles are identical
  * 
