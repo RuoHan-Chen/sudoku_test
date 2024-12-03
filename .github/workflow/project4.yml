@@ -16,12 +16,9 @@ jobs:
 
       - name: Set up Rust
         uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
 
       - name: Build Rust project
         run: cargo build --verbose
 
       - name: Run unit tests
-        run: cargo test --verbose
+        run: cargo tests --verbose
