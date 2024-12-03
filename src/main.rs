@@ -1,5 +1,4 @@
 mod sudoku; 
-#[cfg(test)] 
 mod tests; 
 use std::io::{self, Write}; 
 use sudoku::Puzzle; 
