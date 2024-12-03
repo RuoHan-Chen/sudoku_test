@@ -170,7 +170,7 @@ impl Puzzle {
         println!("+-------+-------+-------+"); 
     }
 /**
- * Checks if two puzzles are identical
+ * Checks if two puzzles are identical used for testing
  * 
  * @param  path Path to the other puzzle file
  * @return      Whether the two puzzles are the same
