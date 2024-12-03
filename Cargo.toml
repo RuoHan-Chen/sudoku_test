@@ -1,8 +1,9 @@
 [package]
-name = "project4-29"
-version = "0.1.0"
-edition = "2021"
+name = "project4-29"  # The name of your project (must match the folder name or crate name)
+version = "0.1.0"     # The version of your crate (must follow semantic versioning)
+edition = "2021"      
 
 [dependencies]
-name = "project4"
-path = "src/sudoku.rs"
+
+[lib]
+path = "src/sudoku.rs" # Path to your library module

@@ -1,44 +1,56 @@
-use std::fs;
-use sudoku::Puzzle;
+use project4_29::Puzzle; 
+
+//Test cases
 #[test]
-fn test_sudoku_solver() {
+fn test_valid_puzzle1() {
+    test_puzzle(
+        "txt/sudoku-test1.txt",
+        "txt/sudoku-test1-solution.txt",
+        true,
+    );
+}
+
+#[test]
+fn test_valid_puzzle2() {
+    test_puzzle(
+        "txt/sudoku-test2.txt",
+        "txt/sudoku-test2-solution.txt",
+        true,
+    );
+}
+
+#[test]
+fn test_unsolvable_puzzle() {
+    test_puzzle("txt/sudoku-impossible.txt", "", false);
+}
+
+/// Helper function to test puzzles
+fn test_puzzle(puzzle_file: &str, solution_file: &str, should_be_solvable: bool) {
     let mut puzzle = Puzzle::new();
 
-    let puzzle_file = "txt/sudoku-test1.txt"; 
-    let solution_file = "txt/sudoku-test1-solution.txt"; 
-
     let load_result = puzzle.load_from_file(&puzzle_file.to_string());
-    assert!(load_result.is_ok(), "Failed to load puzzle from file");
+    assert!(load_result.is_ok(), "Failed to load puzzle from file: {}", puzzle_file);
 
-    println!("Testing unsolved puzzle:");
+    println!("Testing unsolved puzzle from: {}", puzzle_file);
     puzzle.print();
 
     let solve_status = puzzle.solve();
-    assert!(solve_status, "The puzzle should be solvable");
+    assert_eq!(
+        solve_status, should_be_solvable,
+        "Puzzle solvability mismatch for: {}",
+        puzzle_file
+    );
 
-    println!("Testing solved puzzle:");
-    puzzle.print();
+    if should_be_solvable {
+        println!("Testing solved puzzle:");
+        puzzle.print();
 
-    let expected_solution = fs::read_to_string(solution_file)
-        .expect("Failed to read the solution file")
-        .replace("\r\n", "\n"); 
-
-    let actual_solution = puzzle_to_string(&puzzle); 
-    assert_eq!(actual_solution, expected_solution, "The solution does not match the expected result");
-}
-
-fn puzzle_to_string(puzzle: &Puzzle) -> String {
-    let mut result = String::new();
-    for i in 0..Puzzle::NUMROWS {
-        for j in 0..Puzzle::NUMROWS {
-            result.push_str(&puzzle.vals[i][j].to_string());
-            if j < Puzzle::NUMROWS - 1 {
-                result.push(' '); 
+        if !solution_file.is_empty() {
+            match puzzle.equals(&solution_file.to_string()) {
+                Ok(true) => println!("The solved puzzle matches the expected solution!"),
+                Ok(false) => panic!("The solved puzzle does not match the expected solution."),
+                Err(e) => panic!("Error while comparing puzzles: {}", e),
             }
         }
-        if i < Puzzle::NUMROWS - 1 {
-            result.push('\n'); 
-        }
     }
-    result
 }

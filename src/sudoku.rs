@@ -169,5 +169,33 @@ impl Puzzle {
         }
         println!("+-------+-------+-------+"); 
     }
+    
+/**
+ * Checks if two puzzles are identical
+ * 
+ * @param  path Path to the other puzzle file
+ * @return      Whether the two puzzles are the same
+ */
+pub fn equals(&self, path: &String) -> io::Result<bool> {
+    let f = File::open(path)?;
+    let reader = BufReader::new(f);
+
+    for (i, line) in reader.lines().enumerate() {
+        let line = line?; // Read the line
+        let nums: Vec<u32> = line
+            .split_whitespace() // Split the line into numbers by spaces
+            .filter_map(|num| num.parse::<u32>().ok()) // Parse each number
+            .collect();
+
+        // Compare the numbers with the corresponding row in the current puzzle
+        if nums.len() != Self::NUMROWS || nums != self.vals[i] {
+            return Ok(false); // If any row differs, return false
+        }
+    }
+
+    Ok(true) // If all rows are identical, return true
+}
+
+
 
 }
